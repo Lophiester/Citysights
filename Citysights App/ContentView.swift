@@ -11,21 +11,38 @@ struct ContentView: View {
     
     @State var text: String = ""
     var body: some View {
-        HStack {
-            TextField("What are you looking for?", text: $text)
-                .textFieldStyle(.roundedBorder)
-            Button {
-                // TODO: implement some action
-            } label: {
-                Text("Search")
-                    .foregroundStyle(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .clipShape(.buttonBorder)
+        VStack {
+            HStack {
+                TextField("What are you looking for?", text: $text)
+                    .textFieldStyle(.roundedBorder)
+                Button {
+                    // TODO: implement some action
+                } label: {
+                    Text("Search")
+                        .foregroundStyle(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .clipShape(.buttonBorder)
+                }
+                
             }
-
+            .padding()
+            HStack {
+                TextField("What are you looking for?", text: $text)
+                    .textFieldStyle(.roundedBorder)
+                Button {
+                    // TODO: implement some action
+                } label: {
+                    Text("Search")
+                        .foregroundStyle(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .clipShape(.buttonBorder)
+                }
+                
+            }
+            .padding()
         }
-        .padding()
     }
 }
 

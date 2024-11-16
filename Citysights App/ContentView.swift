@@ -27,21 +27,7 @@ struct ContentView: View {
                 
             }
             .padding()
-            HStack {
-                TextField("What are you looking for?", text: $text)
-                    .textFieldStyle(.roundedBorder)
-                Button {
-                    // TODO: implement some action
-                } label: {
-                    Text("Search")
-                        .foregroundStyle(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(.buttonBorder)
-                }
-                
-            }
-            .padding()
+ 
         }
     }
 }

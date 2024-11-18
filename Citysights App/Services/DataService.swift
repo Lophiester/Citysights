@@ -11,11 +11,12 @@ struct DataService {
     
     let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
     
-    func businessSearch() async {
+    func businessSearch() async -> [Business] {
         
         // Check if api key exists
         guard apiKey != nil else {
-            return
+            print("API key is missing.")
+            return []
         }
         
         // 1. Create url
@@ -30,13 +31,23 @@ struct DataService {
             do {
                 let (data, response) = try await URLSession.shared.data(for: request)
                 
-                print(data)
-                print(response)
-            }
-            catch {
-                print(error)
+                // Optional: Validate the response status code
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    print("HTTP Error: \(httpResponse.statusCode)")
+                    return []
+                }
+                
+                // 4. Parse the JSON
+                let decoder = JSONDecoder()
+                let result = try decoder.decode(BusinessSearch.self, from: data)
+                return result.businesses ?? []
+            } catch {
+                print("Error during request or JSON decoding: \(error)")
+                return [] // Return empty array if an error occurs
             }
         }
+        
+        print("Invalid URL.")
+        return [] // Return empty array if the URL is invalid
     }
-    
 }

@@ -37,16 +37,6 @@ struct Business: Identifiable, Codable {
     let reviewCount: Int?
     let url: String?
 
-    enum CodingKeys: String, CodingKey {
-        case alias, categories, coordinates
-        case displayPhone = "display_phone"
-        case distance, id
-        case imageURL = "image_url"
-        case isClosed = "is_closed"
-        case location, name, phone, price, rating
-        case reviewCount = "review_count"
-        case url
-    }
 }
 
 
@@ -54,11 +44,6 @@ struct Business: Identifiable, Codable {
 struct Open: Codable {
     let isOvernight: Bool?
     let start, end, day: Int?
-
-    enum CodingKeys: String, CodingKey {
-        case isOvernight = "is_overnight"
-        case start, end, day
-    }
 }
 
 // MARK: - Category
@@ -77,13 +62,6 @@ struct Location: Codable {
     let country: String?
     let displayAddress: [String]?
     let state, zipCode: String?
-
-    enum CodingKeys: String, CodingKey {
-        case address1, address2, address3, city, country
-        case displayAddress = "display_address"
-        case state
-        case zipCode = "zip_code"
-    }
 }
 
 // MARK: - Region

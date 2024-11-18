@@ -22,7 +22,7 @@ struct BusinessSearch: Codable {
 }
 
 // MARK: - Business
-struct Business: Codable {
+struct Business: Identifiable, Codable {
     let alias: String?
     let categories: [Category]?
     let coordinates: Center?

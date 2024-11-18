@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State var businesses = [Business]()
     @State var text: String = ""
     var service = DataService()
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 TextField("What are you looking for?", text: $text)
                     .textFieldStyle(.roundedBorder)
@@ -25,13 +25,18 @@ struct ContentView: View {
                         .background(Color.blue)
                         .clipShape(.buttonBorder)
                 }
+            
                 
             }
-            .padding()
-            .task {
-                let businesses = await service.businessSearch()
+          
+ ForEach(businesses) { business in
+     Text(business.name ?? "No Name")
             }
- 
+        }
+        .padding()
+        Spacer()
+        .task {
+         businesses = await service.businessSearch()
         }
     }
 }

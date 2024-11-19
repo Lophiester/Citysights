@@ -12,7 +12,7 @@ struct ContentView: View {
     @State var text: String = ""
     var service = DataService()
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack{
             HStack {
                 TextField("What are you looking for?", text: $text)
                     .textFieldStyle(.roundedBorder)
@@ -25,19 +25,39 @@ struct ContentView: View {
                         .background(Color.blue)
                         .clipShape(.buttonBorder)
                 }
-            
+                
                 
             }
-          
- ForEach(businesses) { business in
-     Text(business.name ?? "No Name")
+            List{
+                ForEach(businesses) { business in
+                    VStack(spacing: 20) {
+                        HStack(spacing: 0){
+                            Image("list-placeholder-image")
+                                .padding(.trailing,16)
+                            VStack(alignment: .leading, spacing: 5){
+                                Text(business.name ?? "No Name")
+                                    .font(Font.system(size: 15))
+                                    .fontWeight(.bold)
+                                Text(TextHelper.distanceAwaysText(meters: business.distance ?? 0))
+                                    .font(Font.system(size: 16))
+                                    .foregroundStyle(Color(red: 67/255, green: 71/255, blue: 76/255))
+                                
+                            }
+                            Spacer()
+                            Image("regular_\(round(business.rating ?? 0))")
+                            
+                        }
+                        Divider()
+                    }
+                }
+                .listRowSeparator(.hidden)
             }
+            .listStyle(.plain)
         }
-        .padding()
         Spacer()
-        .task {
-         businesses = await service.businessSearch()
-        }
+            .task {
+                businesses = await service.businessSearch()
+            }
     }
 }
 

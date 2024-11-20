@@ -17,4 +17,16 @@ struct TextHelper{
             return "\(Int(round(meters))) m away"
         }
     }
+    
+    static func reviewCountText(reviews: Int)-> String{
+        
+        if reviews > 1 {
+            return ("\(reviews) reviews")
+        }
+        else {
+            return ("\(reviews) review")
+        }
+    }
 }
+
+

@@ -11,6 +11,8 @@ struct ContentView: View {
     @State var businesses = [Business]()
     @State var text: String = ""
     @State var selected: Business?
+    @State private var showAlert = false
+    @State private var errorMessage = ""
     var service = DataService()
     var body: some View {
         VStack{
@@ -52,6 +54,7 @@ struct ContentView: View {
                     }
                     .onTapGesture {
                         selected = business
+        
                     }
                 }
                 .listRowSeparator(.hidden)
@@ -60,7 +63,12 @@ struct ContentView: View {
         }
         Spacer()
             .task {
-                businesses = await service.businessSearch()
+                do{
+                    businesses = try await service.businessSearch()}
+                catch{
+                    showAlert = true
+                    errorMessage = error.localizedDescription
+                }
             }
             .sheet(item: $selected) { item in
                 BusinessDetailView(business: item)

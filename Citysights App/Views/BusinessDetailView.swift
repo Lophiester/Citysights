@@ -34,6 +34,7 @@ struct BusinessDetailView: View {
                         .padding(.horizontal)
                 }
                 .frame(height: 36)
+                
             }
          
             

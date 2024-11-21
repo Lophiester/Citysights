@@ -16,7 +16,7 @@ import Foundation
 
 // MARK: - Welcome
 struct BusinessSearch: Codable {
-    let businesses: [Business]
+    let businesses: [Business]?
     let region: Region?
     let total: Int?
 }

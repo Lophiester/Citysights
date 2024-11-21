@@ -20,31 +20,30 @@ struct DataService {
         
         // Check if api key exists
         guard let apiKey = apiKey else {
-            throw URLError(.fileDoesNotExist)
+            throw DataServiceError.missingAPIKey
         }
         
         // 1. Create url
         
         guard let url = URL(string: urlText) else {
-            throw URLError(.badURL)
+            throw DataServiceError.invalidURL
         }
         
         var request = URLRequest(url: url)
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "accept")
         
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let res = response as? HTTPURLResponse, res.statusCode == 200 else {
+            throw DataServiceError.invalidResponse
+        }
         do{
-            let (data, response) = try await URLSession.shared.data(for: request)
-            
-            guard let res = response as? HTTPURLResponse, res.statusCode == 200 else {
-                throw URLError(.badServerResponse)
-            }
             let decoder = JSONDecoder()
             let result = try decoder.decode(BusinessSearch.self, from: data)
-            return result.businesses
+            return result.businesses ?? []
         }
         catch{
-            throw URLError(.cannotDecodeContentData)
+            throw DataServiceError.decodingError(error)
         }
     }
 }

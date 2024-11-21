@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var selected: Business?
     @State private var showAlert = false
     @State private var errorMessage = ""
+    @State private var isLoading = false
     var service = DataService()
     var body: some View {
         VStack{
@@ -28,43 +29,54 @@ struct ContentView: View {
                         .background(Color.blue)
                         .clipShape(.buttonBorder)
                 }
-                
-                
             }
-            List{
-                ForEach(businesses) { business in
-                    VStack(spacing: 20) {
-                        HStack(spacing: 0){
-                            Image("list-placeholder-image")
-                                .padding(.trailing,16)
-                            VStack(alignment: .leading, spacing: 5){
-                                Text(business.name ?? "No Name")
-                                    .font(Font.system(size: 15))
-                                    .fontWeight(.bold)
-                                Text(TextHelper.distanceAwaysText(meters: business.distance ?? 0))
-                                    .font(Font.system(size: 16))
-                                    .foregroundStyle(Color(red: 67/255, green: 71/255, blue: 76/255))
+            Spacer()
+            VStack{
+                if isLoading{
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else{
+                    List{
+                        ForEach(businesses) { business in
+                            VStack(spacing: 20) {
+                                HStack(spacing: 0){
+                                    Image("list-placeholder-image")
+                                        .padding(.trailing,16)
+                                    VStack(alignment: .leading, spacing: 5){
+                                        Text(business.name ?? "No Name")
+                                            .font(Font.system(size: 15))
+                                            .fontWeight(.bold)
+                                        Text(TextHelper.distanceAwaysText(meters: business.distance ?? 0))
+                                            .font(Font.system(size: 16))
+                                            .foregroundStyle(Color(red: 67/255, green: 71/255, blue: 76/255))
+                                        
+                                    }
+                                    Spacer()
+                                    Image("regular_\(round(business.rating ?? 0))")
+                                    
+                                }
+                                Divider()
+                            }
+                            .onTapGesture {
+                                selected = business
                                 
                             }
-                            Spacer()
-                            Image("regular_\(round(business.rating ?? 0))")
-                            
                         }
-                        Divider()
+                        .listRowSeparator(.hidden)
                     }
-                    .onTapGesture {
-                        selected = business
-        
-                    }
+                    .listStyle(.plain)
                 }
-                .listRowSeparator(.hidden)
             }
-            .listStyle(.plain)
+            Spacer()
         }
         Spacer()
             .task {
                 do{
-                    businesses = try await service.businessSearch()}
+                    isLoading = true
+                    businesses = try await service.businessSearch()
+                    isLoading = false
+                    
+                }
                 catch{
                     showAlert = true
                     errorMessage = error.localizedDescription

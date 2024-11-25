@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var businesses = [Business]()
-    @State var text: String = ""
-    @State var selected: Business?
-    @State private var showAlert = false
-    @State private var errorMessage = ""
-    @State private var isLoading = false
-    var service = DataService()
+    @Environment(BusinessModel.self) private var model
+    
+
     var body: some View {
+        @Bindable var model = model
         VStack{
             HStack {
-                TextField("What are you looking for?", text: $text)
+                TextField("What are you looking for?", text: $model.text)
                     .textFieldStyle(.roundedBorder)
                 Button {
                     // TODO: implement some action
@@ -32,12 +29,12 @@ struct ContentView: View {
             }
             Spacer()
             VStack{
-                if isLoading{
+                if model.isLoading{
                     ProgressView()
                         .progressViewStyle(.circular)
                 } else{
                     List{
-                        ForEach(businesses) { business in
+                        ForEach(model.businesses) { business in
                             VStack(spacing: 20) {
                                 HStack(spacing: 0){
                                     Image("list-placeholder-image")
@@ -58,7 +55,7 @@ struct ContentView: View {
                                 Divider()
                             }
                             .onTapGesture {
-                                selected = business
+                                model.selected = business
                                 
                             }
                         }
@@ -70,20 +67,11 @@ struct ContentView: View {
             Spacer()
         }
         Spacer()
-            .task {
-                do{
-                    isLoading = true
-                    businesses = try await service.businessSearch()
-                    isLoading = false
-                    
-                }
-                catch{
-                    showAlert = true
-                    errorMessage = error.localizedDescription
-                }
+            .onAppear{
+                model.getBusinesses()
             }
-            .sheet(item: $selected) { item in
-                BusinessDetailView(business: item)
+            .sheet(item: $model.selected) { item in
+                BusinessDetailView()
             }
            
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct Citysights: App {
-    @State var model = BusinessModel()
+    @State var model = BusinessViewModel()
     var body: some Scene {
         WindowGroup {
             HomeView().environment(model)

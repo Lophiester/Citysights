@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-class BusinessModel{
+class BusinessViewModel{
     
   var businesses = [Business]()
   var text: String = ""

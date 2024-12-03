@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(BusinessModel.self) private var model
+    @Environment(BusinessViewModel.self) private var model
     @State var selectedTab = 0
     
 
@@ -65,5 +65,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView().environment(BusinessModel())
+    HomeView().environment(BusinessViewModel())
 }

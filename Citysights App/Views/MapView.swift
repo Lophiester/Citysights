@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @Environment(BusinessModel.self) private var model
+    @Environment(BusinessViewModel.self) private var model
     @State var selectedBusinessId: String?
     var body: some View {
         Map(selection: $selectedBusinessId){
@@ -34,5 +34,5 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView().environment(BusinessModel())
+    MapView().environment(BusinessViewModel())
 }

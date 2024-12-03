@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BusinessDetailView: View {
     
-    @Environment(BusinessModel.self) private var model
+    @Environment(BusinessViewModel.self) private var model
     
     var body: some View {
         let business = model.selected
@@ -90,5 +90,5 @@ struct BusinessDetailView: View {
 }
 
 #Preview {
-    BusinessDetailView().environment(BusinessModel())
+    BusinessDetailView().environment(BusinessViewModel())
 }

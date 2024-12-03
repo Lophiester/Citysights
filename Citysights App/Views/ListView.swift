@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ListView: View {
-    @Environment(BusinessModel.self) var model
+    @Environment(BusinessViewModel.self) var model
     
     
     var body: some View {
@@ -45,5 +45,5 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView().environment(BusinessModel())
+    ListView().environment(BusinessViewModel())
 }

@@ -12,7 +12,7 @@ struct BusinessDetailView: View {
     @Environment(BusinessModel.self) private var model
     
     var body: some View {
-        var business = model.selected
+        let business = model.selected
         
         VStack(spacing:0){
             ZStack(alignment: .bottomTrailing) {
@@ -90,5 +90,5 @@ struct BusinessDetailView: View {
 }
 
 #Preview {
-    BusinessDetailView()
+    BusinessDetailView().environment(BusinessModel())
 }

@@ -28,7 +28,7 @@ struct Business: Identifiable, Codable {
     let coordinates: Center?
     let displayPhone: String?
     let distance: Double?
-    let id: String?
+    let id: String
     let imageURL: String?
     let isClosed: Bool?
     let location: Location?

@@ -31,10 +31,8 @@ struct DataService {
         }
         // 1. Create url
         guard let url = URL(
-            string: "https://api.yelp.com/v3/businesses/search?latitude=\(latitude)&longitude=\(longitude)&categories=restaurants&limit=10"
-        ) else {
-            throw DataServiceError.invalidURL
-        }
+            string: "https://api.yelp.com/v3/businesses/search?latitude=\(latitude)&longitude=\(longitude)&categories=restaurants&limit=10")
+        else { throw DataServiceError.invalidURL}
         
         var request = URLRequest(url: url)
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")

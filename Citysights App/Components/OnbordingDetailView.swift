@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnbordingViewDetails: View {
+struct OnbordingDetailView: View {
     var bgColor: Color
     var headLine: String
     var subHeadLine: String
@@ -49,5 +49,5 @@ struct OnbordingViewDetails: View {
 }
 
 #Preview {
-    OnbordingViewDetails(bgColor: Color(red: 111/255, green: 154/255, blue: 189/255), headLine: "Welcome to Citysights!", subHeadLine: "City Sights helps you find the best of the city!", buttonAction:{} )
+    OnbordingDetailView(bgColor: Color(red: 111/255, green: 154/255, blue: 189/255), headLine: "Welcome to Citysights!", subHeadLine: "City Sights helps you find the best of the city!", buttonAction:{} )
 }

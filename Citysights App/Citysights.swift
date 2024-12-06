@@ -19,7 +19,7 @@ struct Citysights: App {
                     // on dismiss
                     needsOnborading = false
                 } content: {
-                    OnboardingView()
+                    OnboardingView().environment(model)
                 }
 
                 

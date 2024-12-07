@@ -17,12 +17,11 @@ struct Citysights: App {
                 .environment(model)
                 .fullScreenCover(isPresented: $needsOnborading) {
                     // on dismiss
-                    needsOnborading = false
-                } content: {
-                    OnboardingView().environment(model)
-                }
-
-                
+                    needsOnborading = false}content: { OnboardingView().environment(model)}
+                .onAppear{
+                    // if no onboarding is needed, still get location
+                    if needsOnborading == false {
+                        model.getUserLocation()}}
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct BusinessDetailView: View {
     
@@ -16,8 +17,21 @@ struct BusinessDetailView: View {
         
         VStack(spacing:0){
             ZStack(alignment: .bottomTrailing) {
-                Image("detail-placeholder-image")
-                    .resizable()
+                if let imageURL = business?.imageUrl {
+                    WebImage(url: URL(string: imageURL)) {
+                        $0.resizable()
+                            .scaledToFill()
+                            .frame(height: 164)
+                            .clipped()
+                    } placeholder: {
+                        ProgressView()
+                    }
+
+                }else{
+                    Image("detail-placeholder-image")
+                        .resizable()
+                }
+    
                 VStack {
                     Spacer()
                     Image("yelp-attribution-image")
@@ -38,9 +52,6 @@ struct BusinessDetailView: View {
                 .frame(height: 36)
                 
             }
-         
-            
-          
             ScrollView{
                 VStack(alignment: .leading ,spacing: 0){
                     Text(business?.name ?? "No Name")

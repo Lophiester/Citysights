@@ -9,7 +9,7 @@ import Foundation
 
 struct TextHelper{
     
-    static func distanceAwaysText(meters: Double) -> String {
+    static func distanceAwayText(meters: Double) -> String {
         if meters > 1000 {
             return "\(Int(round(meters/1000))) km away"
         }

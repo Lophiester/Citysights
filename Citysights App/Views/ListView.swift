@@ -8,34 +8,51 @@
 import SwiftUI
 
 struct ListView: View {
+    
     @Environment(BusinessViewModel.self) var model
     
-    
     var body: some View {
-        List{
-            ForEach(model.businesses) { business in
-                VStack(spacing: 20) {
-                    HStack(spacing: 0){
-                        Image("list-placeholder-image")
-                            .padding(.trailing,16)
-                        VStack(alignment: .leading, spacing: 5){
-                            Text(business.name ?? "No Name")
+        
+        List {
+            ForEach(model.businesses) { b in
+                
+                VStack (spacing: 20) {
+                    HStack (spacing: 0) {
+                        
+                        if let imageUrl = b.imageUrl {
+                            // Display the business image
+                            AsyncImage(url: URL(string: imageUrl)!) {
+                                $0.resizable()
+                                    .frame(width: 50, height: 50)
+                                    .scaledToFill()
+                                    .clipShape(.rect(cornerRadius: 6))
+                                    .padding(.trailing, 16)
+                            } placeholder: {
+                                ProgressView()
+                                    .frame(width: 50, height: 50)
+                            }
+
+                        }
+                        else {
+                            Image("list-placeholder-image")
+                                .padding(.trailing, 16)
+                        }
+                        
+                        VStack (alignment: .leading) {
+                            Text(b.name ?? "Restaurant")
                                 .font(Font.system(size: 15))
-                                .fontWeight(.bold)
-                            Text(TextHelper.distanceAwaysText(meters: business.distance ?? 0))
+                                .bold()
+                            Text(TextHelper.distanceAwayText(meters: b.distance ?? 0))
                                 .font(Font.system(size: 16))
                                 .foregroundStyle(Color(red: 67/255, green: 71/255, blue: 76/255))
-                            
                         }
                         Spacer()
-                        Image("regular_\(round(business.rating ?? 0))")
-                        
+                        Image("regular_\(round(b.rating ?? 0))")
                     }
                     Divider()
                 }
                 .onTapGesture {
-                    model.selected = business
-                    
+                    model.selected = b
                 }
             }
             .listRowSeparator(.hidden)
@@ -45,5 +62,6 @@ struct ListView: View {
 }
 
 #Preview {
-    ListView().environment(BusinessViewModel())
+    ListView()
+        .environment(BusinessViewModel())
 }

@@ -44,8 +44,8 @@ struct DataService {
         do{
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            let result = try decoder.decode(BusinessSearchModel.self, from: data)
-            return result.businesses ?? []}
+            let result = try decoder.decode(BusinessSearch.self, from: data)
+            return result.businesses}
         catch{throw DataServiceError.decodingError(error)}
     }
 }

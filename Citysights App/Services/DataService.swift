@@ -16,23 +16,39 @@ struct DataService {
         self.apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
     }
     
-    func businessSearch(userLocation: CLLocationCoordinate2D?) async throws -> [Business] {
+    func businessSearch(userLocation: CLLocationCoordinate2D?, query: String?, options: String?, category:String?) async throws -> [Business] {
         // Check if api key exists
         guard let apiKey = apiKey else { throw DataServiceError.missingAPIKey}
         
         // Default lat long
-        var latitude = 39.770398
-        var longitude = 139.770398
+        var lat = 35.665517
+        var long = 139.770398
         
         // User lat long
-        if let userLocation {
-            latitude = userLocation.latitude
-            longitude = userLocation.longitude
+        if let userLocation = userLocation {
+            lat = userLocation.latitude
+            long = userLocation.longitude
         }
+        
+        var urlString = "https://api.yelp.com/v3/businesses/search?latitude=\(lat)&longitude=\(long)&limit=10"
+        
+        // Add query
+        if query != nil && query != "" {
+            urlString.append("&term=\(query!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)")
+        }
+        
+        // Add options
+        if options != nil && options != "" {
+            urlString.append("&attributes=\(options!)")
+        }
+        
+        // Add category
+        if let category = category {
+            urlString.append("&category=\(category)")
+        }
+       
         // 1. Create url
-        guard let url = URL(
-            string: "https://api.yelp.com/v3/businesses/search?latitude=\(latitude)&longitude=\(longitude)&categories=restaurants&limit=10")
-        else { throw DataServiceError.invalidURL}
+        guard let url = URL(string: urlString )else { throw DataServiceError.invalidURL}
         
         var request = URLRequest(url: url)
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")

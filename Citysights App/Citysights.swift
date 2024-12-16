@@ -10,17 +10,17 @@ import SwiftUI
 @main
 struct Citysights: App {
     @State var model = BusinessViewModel()
-    @AppStorage("onboarding") var needsOnborading: Bool = true
+    @AppStorage("onboarding") var needsOnboarding: Bool = true
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .environment(model)
-                .fullScreenCover(isPresented: $needsOnborading) {
+                .fullScreenCover(isPresented: $needsOnboarding) {
                     // on dismiss
-                    needsOnborading = false}content: { OnboardingView().environment(model)}
+                    needsOnboarding = false}content: { OnboardingView().environment(model)}
                 .onAppear{
                     // if no onboarding is needed, still get location
-                    if needsOnborading == false {
+                    if needsOnboarding == false {
                         model.getUserLocation()}}
         }
     }

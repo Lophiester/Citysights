@@ -68,7 +68,13 @@ struct BusinessDetailView: View {
                     Divider()
                     HStack{
                         Image(systemName: "phone")
-                        Text(business?.phone ?? "No Phone")
+                        if let url = URL(string: "tel:\(business?.phone ?? "")"){
+                            Link(destination: url) {
+                                Text(business?.phone ?? "")
+                            }
+                        }else {
+                            Text(business?.phone ?? "")
+                        }
                         Spacer()
                         Image(systemName: "arrow.right")
                         
@@ -76,8 +82,18 @@ struct BusinessDetailView: View {
                     Divider()
                     HStack{
                         Image(systemName: "globe")
-                        Text(business?.url ?? "No URL")
-                            .lineLimit(1)
+                        if let url = URL(string: "\(business?.url ?? "No URL")"){
+                            Link(destination: url) {
+                                Text(business?.url ?? "No URL")
+                                    .lineLimit(1)
+                            }
+                        }else {
+                            Text(business?.url ?? "No URL")
+                                .lineLimit(1)
+                        }
+                        
+                     
+                           
                         Spacer()
                         Image(systemName: "arrow.right")
                     }.padding(.vertical,12)
@@ -85,8 +101,7 @@ struct BusinessDetailView: View {
                     HStack{
                         Image(systemName: "bubble.left.and.bubble.right")
                         Text(TextHelper.reviewCountText(reviews: business?.reviewCount ?? 0))
-                        Spacer()
-                        Image(systemName: "arrow.right")
+                       
                         
                     }.padding(.vertical,12)
                     Spacer()

@@ -21,7 +21,7 @@ struct ListView: View {
                         
                         if let imageUrl = b.imageUrl {
                             // Display the business image
-                            AsyncImage(url: URL(string: imageUrl)!) {
+                            AsyncImage(url: URL(string: imageUrl)) {
                                 $0.resizable()
                                     .frame(width: 50, height: 50)
                                     .scaledToFill()

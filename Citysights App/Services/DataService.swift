@@ -16,7 +16,7 @@ struct DataService {
         self.apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
     }
     
-    func businessSearch(userLocation: CLLocationCoordinate2D?, query: String?, options: String?, category:String?) async throws -> [Business] {
+    func businessSearch(userLocation: CLLocationCoordinate2D?, query: String?, options: String?, category:String?) async throws -> [BusinessModel] {
         // Check if api key exists
         guard let apiKey = apiKey else { throw DataServiceError.missingAPIKey}
         
@@ -60,7 +60,7 @@ struct DataService {
         do{
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            let result = try decoder.decode(BusinessSearch.self, from: data)
+            let result = try decoder.decode(BusinessSearchModel.self, from: data)
             return result.businesses}
         catch{throw DataServiceError.decodingError(error)}
     }

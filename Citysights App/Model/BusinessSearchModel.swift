@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct BusinessSearch: Decodable {
-    var businesses = [Business]()
+struct BusinessSearchModel: Decodable {
+    var businesses = [BusinessModel]()
     var region = Region()
     var total = 0
 }

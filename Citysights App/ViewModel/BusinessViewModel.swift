@@ -11,8 +11,8 @@ import CoreLocation
 @Observable
 class BusinessViewModel: NSObject,CLLocationManagerDelegate{
     
-    var businesses = [Business]()
-    var selected: Business?
+    var businesses = [BusinessModel]()
+    var selected: BusinessModel?
     var service = DataService()
     
     var locationManager = CLLocationManager()

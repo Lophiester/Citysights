@@ -14,9 +14,22 @@
 		C7D0F7722CE80DE300D3E33B /* Citysights App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Citysights App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5412B2992D2A7F19000F3EE0 /* Exceptions for "Citysights App" folder in "Citysights App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Config.xcconfig,
+			);
+			target = C7D0F7712CE80DE300D3E33B /* Citysights App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C7D0F7742CE80DE300D3E33B /* Citysights App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5412B2992D2A7F19000F3EE0 /* Exceptions for "Citysights App" folder in "Citysights App" target */,
+			);
 			path = "Citysights App";
 			sourceTree = "<group>";
 		};
@@ -84,7 +97,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1610;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					C7D0F7712CE80DE300D3E33B = {
 						CreatedOnToolsVersion = 16.1;

@@ -24,14 +24,14 @@ struct OnboardingView: View {
              }
             
             TabView(selection: $selectedTab){
-                OnbordingDetailView(bgColor: Color(red: 111/255, green: 154/255, blue: 189/255), headLine: "Welcome to Citysights!", subHeadLine: "City Sights helps you find the best of the city!", buttonAction: {
+                OnboardingDetailView(bgColor: Color(red: 111/255, green: 154/255, blue: 189/255), headLine: "Welcome to Citysights!", subHeadLine: "City Sights helps you find the best of the city!", buttonAction: {
                     withAnimation {
                         selectedTab = 1
                     }
                    
                 })
                 .tag(0)
-                OnbordingDetailView(bgColor: Color(red: 139/255, green: 166/255, blue: 65/255), headLine: "Discover your city", subHeadLine: "We'll help you find the best of the restaurants, venues based on your location.!", buttonAction: {
+                OnboardingDetailView(bgColor: Color(red: 139/255, green: 166/255, blue: 65/255), headLine: "Discover your city", subHeadLine: "We'll help you find the best of the restaurants, venues based on your location.!", buttonAction: {
                     viewModel.getUserLocation()
                     dismiss()
                 })

@@ -17,12 +17,7 @@ struct OnboardingView: View {
     var body: some View {
         
         ZStack{
-            if selectedTab == 0 {
-                Color(red: 111/255, green: 154/255, blue: 189/255)
-             } else{
-                 Color(red: 139/255, green: 166/255, blue: 65/255)
-             }
-            
+        
             TabView(selection: $selectedTab){
                 OnboardingDetailView(bgColor: Color(red: 111/255, green: 154/255, blue: 189/255), headLine: "Welcome to Citysights!", subHeadLine: "City Sights helps you find the best of the city!", buttonAction: {
                     withAnimation {

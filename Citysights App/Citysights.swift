@@ -17,7 +17,8 @@ struct Citysights: App {
                 .environment(model)
                 .fullScreenCover(isPresented: $needsOnboarding) {
                     // on dismiss
-                    needsOnboarding = false}content: { OnboardingView().environment(model)}
+                    needsOnboarding = false}
+            content: { OnboardingView().environment(model)}
                 .onAppear{
                     // if no onboarding is needed, still get location
                     if needsOnboarding == false && model.locationAuthStatus == .notDetermined {
